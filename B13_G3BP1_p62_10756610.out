@@ -1,0 +1,6 @@
+CP-JAVA 21:46:04.813 [Thread-0] WARN  o.c.imageset.ChannelFilter - Channels have different numbers of images:
+CP-JAVA 21:46:04.857 [Thread-0] WARN  o.c.imageset.ChannelFilter -     Channel p62: 50 images
+CP-JAVA 21:46:04.857 [Thread-0] WARN  o.c.imageset.ChannelFilter -     Channel G3BP1: 50 images
+CP-JAVA 21:46:04.857 [Thread-0] WARN  o.c.imageset.ChannelFilter -     Channel DNA: 50 images
+CP-JAVA 21:46:04.858 [Thread-0] WARN  o.c.imageset.ChannelFilter -     Channel Cells: 150 images
+CP-JAVA 21:46:04.858 [Thread-0] WARN  o.c.imageset.ChannelFilter -     Channel Nucleus: 150 images

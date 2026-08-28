@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(echo *)",
+      "Bash(python3 -)",
+      "Read(//home/jhe/.claude/**)",
+      "Read(//home/jhe/.claude/projects/**)",
+      "Read(//run/user/6121/claude-6121/**)",
+      "Read(//nfs/cheeseman_dv/jiayi/B3_20260727_Nikon/**)",
+      "Bash(/lab/cheeseman_sequencing/jhe/miniforge3/envs/viz_env/bin/python3 -)"
+    ]
+  }
+}

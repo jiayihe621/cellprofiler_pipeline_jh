@@ -1,0 +1,169 @@
+CellProfiler Pipeline: http://www.cellprofiler.org
+Version:5
+DateRevision:428
+GitHash:
+ModuleCount:11
+HasImagePlaneDetails:False
+
+Images:[module_num:1|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:['To begin creating your project, use the Images module to compile a list of files and/or folders that you want to analyze. You can also specify a set of rules to include only the desired files in your selected folders.']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    :
+    Filter images?:Images only
+    Select the rule criteria:and (extension does isimage) (directory doesnot containregexp "[\\\\/]\\.")
+
+Metadata:[module_num:2|svn_version:'Unknown'|variable_revision_number:6|show_window:False|notes:['The Metadata module optionally allows you to extract information describing your images (i.e, metadata) which will be stored along with your measurements. This information can be contained in the file name and/or location, or in an external file.']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Extract metadata?:Yes
+    Metadata data type:Text
+    Metadata types:{}
+    Extraction method count:2
+    Metadata extraction method:Extract from file/folder names
+    Metadata source:File name
+    Regular expression to extract from file name:^(?P<Treatment>[A-Za-z0-9.]+)_(?P<CellType>[A-Za-z0-9]+)_.*_\d{3}_(?P<Position>\d+)_z\d+(?:_(?P<ImageType>cell_mask|nucleus_mask))?\.tif$
+    Regular expression to extract from folder name:(?P<Date>[0-9]{4}_[0-9]{2}_[0-9]{2})$
+    Extract metadata from:All images
+    Select the filtering criteria:and (file does contain "")
+    Metadata file location:Elsewhere...|
+    Match file and image metadata:[]
+    Use case insensitive matching?:No
+    Metadata file name:None
+    Does cached metadata exist?:No
+    Metadata extraction method:Extract from image file headers
+    Metadata source:File name
+    Regular expression to extract from file name:
+    Regular expression to extract from folder name:(?P<Date>[0-9]{4}_[0-9]{2}_[0-9]{2})$
+    Extract metadata from:All images
+    Select the filtering criteria:and (file does contain "")
+    Metadata file location:Elsewhere...|
+    Match file and image metadata:[]
+    Use case insensitive matching?:No
+    Metadata file name:None
+    Does cached metadata exist?:Yes
+
+NamesAndTypes:[module_num:3|svn_version:'Unknown'|variable_revision_number:8|show_window:False|notes:['The NamesAndTypes module allows you to assign a meaningful name to each image by which other modules will refer to it.']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Assign a name to:Images matching rules
+    Select the image type:Grayscale image
+    Name to assign these images:DNA
+    Match metadata:[]
+    Image set matching method:Order
+    Set intensity range from:Image metadata
+    Assignments count:5
+    Single images count:0
+    Maximum intensity:255.0
+    Process as 3D?:No
+    Relative pixel spacing in X:1.0
+    Relative pixel spacing in Y:1.0
+    Relative pixel spacing in Z:1.0
+    Select the rule criteria:and (metadata does C "0") (file doesnot contain "mask")
+    Name to assign these images:p62
+    Name to assign these objects:Cell
+    Select the image type:Grayscale image
+    Set intensity range from:Image metadata
+    Maximum intensity:255.0
+    Select the rule criteria:and (metadata does C "1") (file doesnot contain "mask")
+    Name to assign these images:G3BP1
+    Name to assign these objects:Nucleus
+    Select the image type:Grayscale image
+    Set intensity range from:Image metadata
+    Maximum intensity:255.0
+    Select the rule criteria:and (metadata does C "2") (file doesnot contain "mask")
+    Name to assign these images:DNA
+    Name to assign these objects:Cytoplasm
+    Select the image type:Grayscale image
+    Set intensity range from:Image metadata
+    Maximum intensity:255.0
+    Select the rule criteria:and (metadata does ImageType "cell_mask")
+    Name to assign these images:Cells
+    Name to assign these objects:Cells
+    Select the image type:Objects
+    Set intensity range from:Image metadata
+    Maximum intensity:255.0
+    Select the rule criteria:and (metadata does ImageType "nucleus_mask")
+    Name to assign these images:Nucleus
+    Name to assign these objects:Nucleus
+    Select the image type:Objects
+    Set intensity range from:Image metadata
+    Maximum intensity:255.0
+
+Groups:[module_num:4|svn_version:'Unknown'|variable_revision_number:2|show_window:False|notes:['The Groups module optionally allows you to split your list of images into image subsets (groups) which will be processed independently of each other. Examples of groupings include screening batches, microtiter plates, time-lapse movies, etc.']|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Do you want to group your images?:No
+    grouping metadata count:1
+    Metadata category:None
+
+MaskImage:[module_num:5|svn_version:'Unknown'|variable_revision_number:3|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:G3BP1
+    Name the output image:G3BP1_masked
+    Use objects or an image as a mask?:Objects
+    Select object for mask:Cells
+    Select image for mask:None
+    Invert the mask?:No
+
+MaskImage:[module_num:6|svn_version:'Unknown'|variable_revision_number:3|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:p62
+    Name the output image:p62_masked
+    Use objects or an image as a mask?:Objects
+    Select object for mask:Cells
+    Select image for mask:None
+    Invert the mask?:No
+
+MaskImage:[module_num:7|svn_version:'Unknown'|variable_revision_number:3|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the input image:DNA
+    Name the output image:DNA_masked
+    Use objects or an image as a mask?:Objects
+    Select object for mask:Nucleus
+    Select image for mask:None
+    Invert the mask?:No
+
+MaskObjects:[module_num:8|svn_version:'Unknown'|variable_revision_number:3|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select objects to be masked:Cells
+    Name the masked objects:Cytoplasm
+    Mask using a region defined by other objects or by binary image?:Objects
+    Select the masking object:Nucleus
+    Select the masking image:None
+    Handling of objects that are partially masked:Keep overlapping region
+    Fraction of object that must overlap:0.5
+    Numbering of resulting objects:Renumber
+    Invert the mask?:Yes
+
+MeasureObjectIntensity:[module_num:9|svn_version:'Unknown'|variable_revision_number:4|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select images to measure:G3BP1_masked, p62_masked
+    Select objects to measure:Cells, Cytoplasm
+
+MeasureColocalization:[module_num:10|svn_version:'Unknown'|variable_revision_number:5|show_window:False|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select images to measure:G3BP1_masked, p62_masked
+    Set threshold as percentage of maximum intensity for the images:3
+    Select where to measure correlation:Within objects
+    Select objects to measure:Cells, Cytoplasm
+    Run all metrics?:Yes
+    Calculate correlation and slope metrics?:Yes
+    Calculate the Manders coefficients?:Yes
+    Calculate the Rank Weighted Colocalization coefficients?:Yes
+    Calculate the Overlap coefficients?:Yes
+    Calculate the Manders coefficients using Costes auto threshold?:Yes
+    Method for Costes thresholding:Fast
+
+ExportToSpreadsheet:[module_num:11|svn_version:'Unknown'|variable_revision_number:13|show_window:True|notes:[]|batch_state:array([], dtype=uint8)|enabled:True|wants_pause:False]
+    Select the column delimiter:Comma (",")
+    Add image metadata columns to your object data file?:Yes
+    Add image file and folder names to your object data file?:Yes
+    Select the measurements to export:Yes
+    Calculate the per-image mean values for object measurements?:No
+    Calculate the per-image median values for object measurements?:No
+    Calculate the per-image standard deviation values for object measurements?:No
+    Output file location:Default Output Folder|
+    Create a GenePattern GCT file?:No
+    Select source of sample row name:Metadata
+    Select the image to use as the identifier:None
+    Select the metadata to use as the identifier:None
+    Export all measurement types?:Yes
+    Press button to select measurements:Cytoplasm|Intensity_MaxIntensityEdge_G3BP1_masked,Cytoplasm|Intensity_MaxIntensityEdge_p62_masked,Cytoplasm|Intensity_MADIntensity_p62_masked,Cytoplasm|Intensity_MADIntensity_G3BP1_masked,Cytoplasm|Intensity_LowerQuartileIntensity_p62_masked,Cytoplasm|Intensity_LowerQuartileIntensity_G3BP1_masked,Cytoplasm|Intensity_MaxIntensity_p62_masked,Cytoplasm|Intensity_MaxIntensity_G3BP1_masked,Cytoplasm|Intensity_IntegratedIntensity_G3BP1_masked,Cytoplasm|Intensity_IntegratedIntensity_p62_masked,Cytoplasm|Intensity_MassDisplacement_p62_masked,Cytoplasm|Intensity_MassDisplacement_G3BP1_masked,Cytoplasm|Intensity_MeanIntensity_p62_masked,Cytoplasm|Intensity_MeanIntensity_G3BP1_masked,Cytoplasm|Intensity_StdIntensityEdge_G3BP1_masked,Cytoplasm|Intensity_StdIntensityEdge_p62_masked,Cytoplasm|Intensity_MinIntensity_p62_masked,Cytoplasm|Intensity_MinIntensity_G3BP1_masked,Cytoplasm|Intensity_UpperQuartileIntensity_G3BP1_masked,Cytoplasm|Intensity_UpperQuartileIntensity_p62_masked,Cytoplasm|Intensity_StdIntensity_p62_masked,Cytoplasm|Intensity_StdIntensity_G3BP1_masked,Cytoplasm|Intensity_MeanIntensityEdge_p62_masked,Cytoplasm|Intensity_MeanIntensityEdge_G3BP1_masked,Cytoplasm|Intensity_IntegratedIntensityEdge_G3BP1_masked,Cytoplasm|Intensity_IntegratedIntensityEdge_p62_masked,Cytoplasm|Intensity_MinIntensityEdge_p62_masked,Cytoplasm|Intensity_MinIntensityEdge_G3BP1_masked,Cytoplasm|Intensity_MedianIntensity_G3BP1_masked,Cytoplasm|Intensity_MedianIntensity_p62_masked,Cytoplasm|Correlation_K_p62_masked_G3BP1_masked,Cytoplasm|Correlation_K_G3BP1_masked_p62_masked,Cytoplasm|Correlation_Overlap_G3BP1_masked_p62_masked,Cytoplasm|Correlation_RWC_G3BP1_masked_p62_masked,Cytoplasm|Correlation_RWC_p62_masked_G3BP1_masked,Cytoplasm|Correlation_Costes_p62_masked_G3BP1_masked,Cytoplasm|Correlation_Costes_G3BP1_masked_p62_masked,Cytoplasm|Correlation_Manders_G3BP1_masked_p62_masked,Cytoplasm|Correlation_Manders_p62_masked_G3BP1_masked,Cytoplasm|Correlation_Correlation_G3BP1_masked_p62_masked,Cells|Intensity_MaxIntensityEdge_p62_masked,Cells|Intensity_MaxIntensityEdge_G3BP1_masked,Cells|Intensity_LowerQuartileIntensity_p62_masked,Cells|Intensity_LowerQuartileIntensity_G3BP1_masked,Cells|Intensity_StdIntensity_p62_masked,Cells|Intensity_StdIntensity_G3BP1_masked,Cells|Intensity_MeanIntensityEdge_p62_masked,Cells|Intensity_MeanIntensityEdge_G3BP1_masked,Cells|Intensity_MaxIntensity_p62_masked,Cells|Intensity_MaxIntensity_G3BP1_masked,Cells|Intensity_MedianIntensity_p62_masked,Cells|Intensity_MedianIntensity_G3BP1_masked,Cells|Intensity_UpperQuartileIntensity_p62_masked,Cells|Intensity_UpperQuartileIntensity_G3BP1_masked,Cells|Intensity_IntegratedIntensityEdge_p62_masked,Cells|Intensity_IntegratedIntensityEdge_G3BP1_masked,Cells|Intensity_MinIntensityEdge_p62_masked,Cells|Intensity_MinIntensityEdge_G3BP1_masked,Cells|Intensity_MinIntensity_p62_masked,Cells|Intensity_MinIntensity_G3BP1_masked,Cells|Intensity_MADIntensity_G3BP1_masked,Cells|Intensity_MADIntensity_p62_masked,Cells|Intensity_StdIntensityEdge_G3BP1_masked,Cells|Intensity_StdIntensityEdge_p62_masked,Cells|Intensity_MeanIntensity_p62_masked,Cells|Intensity_MeanIntensity_G3BP1_masked,Cells|Intensity_IntegratedIntensity_p62_masked,Cells|Intensity_IntegratedIntensity_G3BP1_masked,Cells|Intensity_MassDisplacement_p62_masked,Cells|Intensity_MassDisplacement_G3BP1_masked,Cells|Correlation_RWC_G3BP1_masked_p62_masked,Cells|Correlation_RWC_p62_masked_G3BP1_masked,Cells|Correlation_K_G3BP1_masked_p62_masked,Cells|Correlation_K_p62_masked_G3BP1_masked,Cells|Correlation_Overlap_G3BP1_masked_p62_masked,Cells|Correlation_Manders_p62_masked_G3BP1_masked,Cells|Correlation_Manders_G3BP1_masked_p62_masked,Cells|Correlation_Correlation_G3BP1_masked_p62_masked,Cells|Correlation_Costes_p62_masked_G3BP1_masked,Cells|Correlation_Costes_G3BP1_masked_p62_masked
+    Representation of Nan/Inf:NaN
+    Add a prefix to file names?:Yes
+    Filename prefix:B3_G3BP1_p62_data_0819_
+    Overwrite existing files without warning?:Yes
+    Data to export:Cytoplasm
+    Combine these object measurements with those of the previous object?:No
+    File name:DATA.csv
+    Use the object name for the file name?:Yes
+    Data to export:Cells
+    Combine these object measurements with those of the previous object?:No
+    File name:DATA.csv
+    Use the object name for the file name?:Yes
